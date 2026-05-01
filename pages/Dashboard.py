@@ -4,8 +4,7 @@ from core.waste_engine import detect_waste
 
 st.title("🏠 Energy Dashboard")
 
-total_power = 2400  # simulated NILM input
-
+total_power = 2400
 devices = disaggregate(total_power)
 
 st.metric("Total Load", f"{total_power} W")
@@ -19,4 +18,15 @@ for device, power in devices.items():
 
 st.subheader("AI Insight")
 
-st.warning(detect_waste(devices["AC"], False))
+# Safe way to get AC power
+ac_power = 0
+# Try common AC name variations
+for key in ['AC', 'ac', 'Air Conditioner', 'air_conditioner', 'aircon']:
+    if key in devices:
+        ac_power = devices[key]
+        break
+
+if ac_power > 0:
+    st.warning(detect_waste(ac_power, False))
+else:
+    st.info("No AC device detected in current load")
