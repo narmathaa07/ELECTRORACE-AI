@@ -1,6 +1,11 @@
 # core/waste_engine.py
 
 def compute_loss(df):
+    """Calculate energy loss from the dataframe"""
+    if df is None or df.empty:
+        return df
+    
+    df = df.copy()
     if "power_used" in df.columns:
         df["loss"] = df["power"] - df["power_used"]
     else:
@@ -8,6 +13,7 @@ def compute_loss(df):
     return df
 
 def detect_waste(power, occupied=False):
+    """Detect energy waste based on power consumption"""
     if power > 1000 and not occupied:
         return "⚠ High power usage in empty condition - Consider turning off devices"
     elif power > 500 and not occupied:
