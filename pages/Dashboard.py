@@ -1,12 +1,10 @@
 import streamlit as st
-import sys
 import os
+import sys
 
-# FIX PATH
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from core.waste_engine import detect_waste
-
 st.title("🏠 Energy Dashboard")
 
 total_power = 2400
