@@ -1,13 +1,16 @@
 import streamlit as st
+import pandas as pd
 
 st.set_page_config(page_title="ElectroTrace AI", layout="wide")
 
 st.title("⚡ ElectroTrace AI")
-st.subheader("NILM-Based Energy Intelligence Platform")
+st.caption("Upload your energy dataset")
 
-st.write("""
-Welcome to ElectroTrace AI — a smart energy system that detects appliance-level usage
-using a single non-invasive sensor and AI-based energy disaggregation.
-""")
+uploaded_file = st.file_uploader("Upload CSV", type=["csv"])
 
-st.info("Use sidebar to navigate: Dashboard, NILM AI, Waste Analysis, Copilot, Prediction")
+if uploaded_file:
+    df = pd.read_csv(uploaded_file)
+    st.session_state["energy_data"] = df
+    st.success("Dataset loaded successfully!")
+else:
+    st.warning("Please upload a dataset to continue")
