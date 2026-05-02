@@ -1,9 +1,7 @@
-def disaggregate(total_power):
-
+def disaggregate_series(power_series):
     return {
-        "AC": total_power * 0.55,
-        "Fridge": total_power * 0.15,
-        "TV": total_power * 0.10,
-        "Fan": total_power * 0.05,
-        "Others": total_power * 0.15
+        "Air Conditioner": power_series * 0.5,
+        "Fridge": power_series * 0.2,
+        "Fan": power_series * 0.1,
+        "TV": power_series * 0.2
     }
