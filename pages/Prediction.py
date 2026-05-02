@@ -1,12 +1,16 @@
 import streamlit as st
-from core.prediction import predict_bill
+from core.prediction_engine import predict_bill
 
-st.title("🔮 Energy Prediction System")
+st.title("🔮 Prediction")
 
-total_kwh = 3.2
+if "energy_data" not in st.session_state:
+    st.warning("Upload dataset first")
+    st.stop()
 
-bill = predict_bill(total_kwh)
+df = st.session_state["energy_data"]
 
-st.metric("Predicted Monthly Bill", f"RM {bill}")
+bill = predict_bill(df)
 
-st.info("Energy usage trend: increasing 8% weekly")
+st.metric("Estimated Monthly Bill", f"RM {bill}")
+
+st.info("Prediction based on historical usage")
