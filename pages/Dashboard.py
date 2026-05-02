@@ -1,4 +1,11 @@
 import streamlit as st
+import sys
+import os
+
+# FIX PATH
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+
 from core.nilm_engine import disaggregate
 from core.waste_engine import detect_waste
 
