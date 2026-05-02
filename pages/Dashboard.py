@@ -6,14 +6,13 @@ import sys
 # FIX IMPORT PATH (WORKS IN CLOUD)
 # -------------------------------
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.insert(0, BASE_DIR)
 
 # -------------------------------
 # SAFE IMPORTS (NO CRASH)
 # -------------------------------
 try:
-    from core.waste_engine import detect_waste
-    from core.nilm_engine import disaggregate
+   from core.waste_engine import detect_waste
+from core.nilm_engine import disaggregate
 except Exception as e:
     st.error(f"Import error: {e}")
     st.stop()
