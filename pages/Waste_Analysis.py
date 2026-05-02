@@ -1,11 +1,20 @@
 import streamlit as st
+import pandas as pd
+from core.waste_engine import compute_loss
 
-st.title("⚠ Energy Waste Analysis")
+st.title("⚠ Waste Analysis")
 
-st.subheader("Top Energy Loss Sources")
+if "energy_data" not in st.session_state:
+    st.warning("Upload dataset first")
+    st.stop()
 
-st.write("🔴 AC Standby Loss → 42%")
-st.write("🟠 Fridge Inefficiency → 28%")
-st.write("🟡 Device Idle Power → 18%")
+df = st.session_state["energy_data"]
 
-st.warning("Main issue: Air conditioner running without occupancy detected")
+df = compute_loss(df)
+
+st.metric("Total Loss", f"{round(df['loss'].sum(),2)} W")
+
+st.line_chart(df["loss"])
+
+st.subheader("Loss Over Time")
+st.area_chart(df["loss"])
